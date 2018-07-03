@@ -1,0 +1,22 @@
+{
+  "name": "music-player",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jerkjoe/music-player.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jerkjoe/music-player/issues"
+  },
+  "homepage": "https://github.com/jerkjoe/music-player#readme",
+  "dependencies": {
+    "leancloud-storage": "^3.7.3"
+  }
+}
