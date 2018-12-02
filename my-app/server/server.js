@@ -22,7 +22,7 @@ const User = mongoose.model('user', new mongoose.Schema({
 }))
 // add data to database
 // User.create({
-//     user: 'Joseph',
+//     user: 'xiaoming',
 //     age: 18
 // }, function (err, doc) {
 //     if (!err) {
@@ -35,7 +35,13 @@ const User = mongoose.model('user', new mongoose.Schema({
 // User.remove({user:'Joseph'}, function(err, doc) {
 //     console.log(doc)
 // })
+// User.update({'user': 'xiaoming'}, {'$set': {'age': 26}}, function(err, doc){
+//     console.log(doc)
+// })
 
+// User.find({'user': 'xiaoming'}, function(err, doc) {
+//     console.log('Found',doc)
+// })
 
 const app = express()
 
