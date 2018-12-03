@@ -1,6 +1,6 @@
 import React from 'react'
 // import { createStore } from 'redux'
-
+import axios from 'axios'
 
 
 
@@ -13,13 +13,19 @@ const App = (props) => {
         <div>
             This is my React!
             {currentState}
-            <button onClick={()=>{
+            <button onClick={() => {
                 console.log(ADD)
                 store.dispatch(ADD())
             }}>ADD</button>
-            <button onClick={()=>{
+            <button onClick={() => {
                 store.dispatch(REMOVE())
             }}>REMOVE</button>
+            <button onClick={() => {
+                axios.get('http://localhost:9093/data').then(res => {
+                    console.dir(res.data)
+                    console.table(res.data)
+                })
+            }}>Axios</button>
         </div>
     )
 
