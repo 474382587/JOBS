@@ -1,5 +1,3 @@
-import { createStore } from 'redux'
-
 const ADD = 'ADD'
 const REMOVE = 'REMOVE'
 
