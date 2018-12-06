@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button } from 'antd-mobile'
-import 'antd-mobile/dist/antd-mobile.css'
 import { addGun, addGunAsync } from './redux.js'
-
+import axios from 'axios'
 import { connect } from 'react-redux'
+
 
 const mapStateToProps = state => {
     return {
@@ -20,6 +20,11 @@ const actionCreators = {
     actionCreators
 )
 class App extends React.Component {
+    componentDidMount() {
+        axios.get('/data').then(res => {
+            console.table(res.data)
+        })
+    }
     render() {
         return (
             <div>

@@ -1,0 +1,8 @@
+.logo-container {
+    text-align: center;
+    margin: 50px auto 20px;
+    max-width: 200px;
+}
+.logo-container > img {
+    width: 100%;
+}
