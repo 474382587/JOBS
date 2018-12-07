@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom'
 import * as serviceWorker from './serviceWorker'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
+import './app.css'
 
-import { counter } from './redux.js'
+import reducer from './reducer.js'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Link, Router } from 'react-router-dom'
 
@@ -17,25 +18,22 @@ import AuthRoute from './components/AuthRoute/AuthRoute'
 
 const reduxDevTools = window.devToolsExtension
     ? window.devToolsExtension()
-    : () => { return null }
+    : ''
 const store = createStore(
-    counter,
+    reducer,
     compose(
         applyMiddleware(thunk),
         reduxDevTools
     )
 )
 
-const hi = function () {
-    return <div>This is hi Page</div>
-}
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
             <div>
-                <AuthRoute></AuthRoute>
-                <Route path="/login" component={Login}></Route>
-                <Route path="/register" component={Register}></Route>
+                <AuthRoute />
+                <Route path="/login" component={Login} />
+                <Route path="/register" component={Register} />
             </div>
         </BrowserRouter>
     </Provider>,

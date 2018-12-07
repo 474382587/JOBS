@@ -1,21 +1,27 @@
 const express = require('express')
 const userRouter = require('./user')
-
+// const registerRouter = require('./register')
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const app = express()
 
 //  Cross Origin
-app.all('*', function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-    res.header("X-Powered-By", ' 3.2.1')
-    res.header("Content-Type", "application/json;charset=utf-8");
-    next();
-});
+app.all('*', function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With')
+    res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
+    res.header('X-Powered-By', ' 3.2.1')
+    res.header('Content-Type', 'application/json;charset=utf-8')
+    next()
+})
+
+app.use(cookieParser())
+app.use(bodyParser.json())
 
 app.use('/user', userRouter)
+// app.use('/register', registerRouter)
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     res.send('<h1>Hello!</h1>')
 })
 // app.get('/data', function (req, res) {
@@ -24,7 +30,7 @@ app.get('/', function (req, res) {
 //     })
 // })
 
-app.listen(9093, function () {
+app.listen(9093, function() {
     console.log('Node app start at port 9093...')
 })
 

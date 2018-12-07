@@ -1,8 +1,7 @@
 import React from 'react'
 import { Button } from 'antd-mobile'
 import { addGun, addGunAsync } from './redux.js'
-import axios from 'axios'
-import { connect } from 'react-redux'
+import axios from ./reducer.jsport { connect } from 'react-redux'
 
 
 const mapStateToProps = state => {
