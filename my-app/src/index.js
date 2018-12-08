@@ -15,6 +15,8 @@ import './config.js'
 import Register from './container/Register/Register'
 import Login from './container/Login/Login'
 import AuthRoute from './components/AuthRoute/AuthRoute'
+import BossInfo from './container/BossInfo/BossInfo'
+// import GeniusInfo from './container/GeniusInfo/GeniusInfo'
 
 const reduxDevTools = window.devToolsExtension
     ? window.devToolsExtension()
@@ -32,6 +34,9 @@ ReactDOM.render(
         <BrowserRouter>
             <div>
                 <AuthRoute />
+                <Route path="/bossinfo" component={BossInfo} />
+                {/*<Route path="/geniusinfo" component={GeniusInfo} /> */} 
+                
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
             </div>

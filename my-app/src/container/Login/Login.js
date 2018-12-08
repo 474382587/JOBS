@@ -28,11 +28,20 @@ class Login extends React.Component {
     render() {
         return (
             <div>
-                {this.props.redirectTo ? <Redirect to={this.props.redirectTo}/> : ''}
+                {this.props.redirectTo ? (
+                    <Redirect to={this.props.redirectTo} />
+                ) : (
+                    ''
+                )}
                 <Logo />
                 <h2 style={{ textAlign: 'center' }}>Login</h2>
                 <WingBlank>
                     <List>
+                        {this.props.msg ? (
+                            <p className="error-msg"> {this.props.msg}</p>
+                        ) : (
+                            ''
+                        )}
                         <InputItem onChange={v => this.handleChange('user', v)}>
                             Username
                         </InputItem>
