@@ -12,6 +12,7 @@ Router.get('/list', function(req, res) {
 })
 Router.post('/update', function(req, res) {
     const userid = req.cookies.userid
+    console.log(userid)
 
     if(!userid) {
         return res.json({
@@ -19,11 +20,15 @@ Router.post('/update', function(req, res) {
         })
     }
     const body = req.body
-    User.findOneAndUpdate(userid, body, function(err, doc) {
+    // User.findOne({_id: userid}, function(err, doc) {
+    //     console.log('找到了 ', doc)
+    // })
+    User.findOneAndUpdate({_id: userid}, body, function(err, doc) {
         const data = Object.assign({}, {
             user: doc.user,
             type: doc.type
         }, body)
+        // console.log(data)
         return res.json({
             code: 0,
             data
@@ -34,7 +39,7 @@ Router.post('/login', function(req, res) {
     const { user, pwd } = req.body
     User.findOne({ user, pwd }, { pwd: 0 }, function(err, doc) {
         if (doc) {
-            res.cookie('userid', doc._id)
+            res.cookie('userid', doc._id.toString())
             return res.json({ code: 0, data: doc })
         } else {
             return res.json({ code: 1, msg: 'does not match' })

@@ -3,14 +3,14 @@ import { NavBar, InputItem, TextareaItem, Button } from 'antd-mobile'
 import AvatarSelector from '../../components/AvatarSelector/AvatarSelector.js'
 import { connect } from 'react-redux'
 import { update } from '../../redux/user.redux'
-import Redirect from 'react-router-dom/Redirect'
+import Redirect from 'react-router-dom/Redirect';
 
-class BossInfo extends React.Component {
+class GeniusInfo extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             title: '',
-            avatar: ''
+            desc: ''
         }
         this.onChange = this.onChange.bind(this)
         this.selectAvatar = this.selectAvatar.bind(this)
@@ -30,11 +30,7 @@ class BossInfo extends React.Component {
         const redirect = this.props.redirectTo
         return (
             <div>
-                {redirect && redirect !== path ? (
-                    <Redirect to={redirect} />
-                ) : (
-                    ''
-                )}
+                {redirect && redirect !== path ? <Redirect to={redirect}></Redirect>: ''}
                 <NavBar mode="dark">Complete Profile</NavBar>
                 <AvatarSelector selectAvatar={this.selectAvatar} />
 
@@ -42,37 +38,17 @@ class BossInfo extends React.Component {
                     Position
                 </InputItem>
 
-                <InputItem onChange={v => this.onChange('company', v)}>
-                    Company
-                </InputItem>
+                <TextareaItem onChange={v => this.onChange('desc', v)} rows="3" autoHeight title="Experience" />
 
-                <InputItem onChange={v => this.onChange('salary', v)}>
-                    Salary
-                </InputItem>
-
-                <TextareaItem
-                    rows="3"
-                    autoHeight
-                    title="Job Description"
-                    onChange={v => this.onChange('desc', v)}
-                />
-
-                <Button
-                    type="primary"
-                    onClick={() => {
-                        this.props.update(this.state)
-                    }}
-                >
-                    Update
-                </Button>
+                <Button type="primary" onClick={() => {this.props.update(this.state)}}>Update</Button>
             </div>
         )
     }
 }
 
-BossInfo = connect(
+GeniusInfo = connect(
     state => state.user,
     { update }
-)(BossInfo)
+)(GeniusInfo)
 
-export default BossInfo
+export default GeniusInfo

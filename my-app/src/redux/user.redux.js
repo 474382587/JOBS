@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { getRedirectionPath } from '../util'
-import { userInfo } from 'os';
 
 const ERROR_MSG = 'ERROR_MSG'
 const AUTH_SUCCESS = 'AUTH_SUCCESS'
