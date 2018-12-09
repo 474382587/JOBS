@@ -9,9 +9,7 @@ import '../../app.css'
 import { NavBar } from 'antd-mobile'
 import { Switch } from 'react-router-dom'
 import NavLink from '../../components/NavLink/NavLink'
-// @connect(
-// 	state=>state
-// )
+
 
 class Dashboard extends React.Component {
     render() {        

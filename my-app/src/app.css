@@ -9,6 +9,7 @@
 .am-tab-bar {
     position: fixed;
     bottom: 0;
+    max-height: 50px;
     width: 100%;
 }
 .am-navbar {

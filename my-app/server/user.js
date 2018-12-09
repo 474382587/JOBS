@@ -7,7 +7,7 @@ const utils = require('utility')
 Router.get('/list', function(req, res) {
     const type = req.query.type
     console.log(type)
-    User.find({ type }, function(err, doc) {
+    User.find({ type }, { pwd: 0 }, function(err, doc) {
         console.log(doc)
         return res.json({
             code: 0,
