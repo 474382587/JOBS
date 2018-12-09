@@ -5,16 +5,21 @@ const User = model.getModel('user')
 const utils = require('utility')
 
 Router.get('/list', function(req, res) {
-    User.find({}, function(err, doc) {
+    const type = req.query.type
+    console.log(type)
+    User.find({ type }, function(err, doc) {
         console.log(doc)
-        return res.json(doc)
+        return res.json({
+            code: 0,
+            data: doc
+        })
     })
 })
 Router.post('/update', function(req, res) {
     const userid = req.cookies.userid
     console.log(userid)
 
-    if(!userid) {
+    if (!userid) {
         return res.json({
             code: 1
         })
@@ -23,11 +28,15 @@ Router.post('/update', function(req, res) {
     // User.findOne({_id: userid}, function(err, doc) {
     //     console.log('找到了 ', doc)
     // })
-    User.findOneAndUpdate({_id: userid}, body, function(err, doc) {
-        const data = Object.assign({}, {
-            user: doc.user,
-            type: doc.type
-        }, body)
+    User.findOneAndUpdate({ _id: userid }, body, function(err, doc) {
+        const data = Object.assign(
+            {},
+            {
+                user: doc.user,
+                type: doc.type
+            },
+            body
+        )
         // console.log(data)
         return res.json({
             code: 0,
@@ -53,14 +62,14 @@ Router.post('/register', function(req, res) {
             console.log(doc)
             return res.json({ code: 1, msg: 'Username has been taken' })
         } else {
-            const userModel = new User({user, type, pwd})
-            userModel.save(function(e, d){
-                if(e) {
+            const userModel = new User({ user, type, pwd })
+            userModel.save(function(e, d) {
+                if (e) {
                     return res.json({ code: 1, msg: 'error occur' })
                 }
-                const {user, type, _id} = d
+                const { user, type, _id } = d
                 res.cookie('userid', _id.toString())
-                return res.json({ code: 0 , data:{user, type, _id}})
+                return res.json({ code: 0, data: { user, type, _id } })
             })
             // User.create({ user, pwd: pwd, type }, function(
             //     err,

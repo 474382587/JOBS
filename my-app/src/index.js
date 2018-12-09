@@ -15,12 +15,13 @@ import './config.js'
 import Register from './container/Register/Register'
 import Login from './container/Login/Login'
 import AuthRoute from './components/AuthRoute/AuthRoute'
+import Dashboard from './components/Dashboard/Dashboard'
+
 import BossInfo from './container/BossInfo/BossInfo'
 import GeniusInfo from './container/GeniusInfo/GeniusInfo'
+import { Switch } from 'react-router-dom'
 
-const reduxDevTools = window.devToolsExtension
-    ? window.devToolsExtension()
-    : ''
+const reduxDevTools = window.devToolsExtension ? window.devToolsExtension() : ''
 const store = createStore(
     reducer,
     compose(
@@ -29,16 +30,25 @@ const store = createStore(
     )
 )
 
+// boss
+// genius
+// personal
+// message
+
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
             <div>
                 <AuthRoute />
-                <Route path="/bossinfo" component={BossInfo} />
-                <Route path="/geniusinfo" component={GeniusInfo} />
-                
-                <Route path="/login" component={Login} />
-                <Route path="/register" component={Register} />
+                <Switch>
+                    <Route path="/bossinfo" component={BossInfo} />
+                    <Route path="/geniusinfo" component={GeniusInfo} />
+
+                    <Route path="/login" component={Login} />
+                    <Route path="/register" component={Register} />
+
+                    <Route component={Dashboard}></Route>
+                </Switch>
             </div>
         </BrowserRouter>
     </Provider>,
