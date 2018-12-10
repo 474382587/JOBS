@@ -59,7 +59,6 @@ Router.post('/register', function(req, res) {
     const { user, pwd, type } = req.body
     User.findOne({ user: user }, function(err, doc) {
         if (doc) {
-            console.log(doc)
             return res.json({ code: 1, msg: 'Username has been taken' })
         } else {
             const userModel = new User({ user, type, pwd })

@@ -1,8 +1,10 @@
 import React from 'react'
 import Logo from '../../components/Logo/Logo'
+import SubmitForm from '../../components/SubmitForm/SubmitForm'
 import { connect } from 'react-redux'
 import { register } from '../../redux/user.redux'
 import { Redirect } from 'react-router-dom'
+
 import {
     List,
     InputItem,
@@ -15,25 +17,25 @@ import {
 class Register extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            user: '',
-            pwd: '',
-            repeatpwd: '',
-            type: 'genius'
-        }
+        // this.state = {
+        //     user: '',
+        //     pwd: '',
+        //     repeatpwd: '',
+        //     type: 'genius'
+        // }
         this.login = this.login.bind(this)
         this.handleRegister = this.handleRegister.bind(this)
     }
-    handleChange(key, val) {
-        this.setState({
-            [key]: val
-        })
-    }
+    // handleChange(key, val) {
+    //     this.setState({
+    //         [key]: val
+    //     })
+    // }
     login() {
         this.props.history.push('./login')
     }
     handleRegister() {
-        this.props.register(this.state)
+        this.props.register(this.props.state)
         console.log('Register')
         console.log(this.props)
     }
@@ -55,34 +57,34 @@ class Register extends React.Component {
                         ) : (
                             ''
                         )}
-                        <InputItem onChange={v => this.handleChange('user', v)}>
+                        <InputItem onChange={v => this.props.handleChange('user', v)}>
                             Username
                         </InputItem>
                         <WhiteSpace style={{ backgroundColor: '#f5f5f9' }} />
                         <InputItem
                             type="password"
-                            onChange={v => this.handleChange('pwd', v)}
+                            onChange={v => this.props.handleChange('pwd', v)}
                         >
                             Password
                         </InputItem>
                         <WhiteSpace style={{ backgroundColor: '#f5f5f9' }} />
                         <InputItem
                             type="password"
-                            onChange={v => this.handleChange('repeatpwd', v)}
+                            onChange={v => this.props.handleChange('repeatpwd', v)}
                         >
                             Confirm
                         </InputItem>
                         <WhiteSpace style={{ backgroundColor: '#f5f5f9' }} />
                         <RadioItem
-                            onChange={v => this.handleChange('type', 'genius')}
-                            checked={this.state.type === 'genius'}
+                            onChange={v => this.props.handleChange('type', 'genius')}
+                            checked={this.props.state.type === 'genius'}
                         >
                             Employee
                         </RadioItem>
                         <WhiteSpace style={{ backgroundColor: '#f5f5f9' }} />
                         <RadioItem
-                            onChange={v => this.handleChange('type', 'boss')}
-                            checked={this.state.type === 'boss'}
+                            onChange={v => this.props.handleChange('type', 'boss')}
+                            checked={this.props.state.type === 'boss'}
                         >
                             Employer
                         </RadioItem>
@@ -101,7 +103,13 @@ class Register extends React.Component {
     }
 }
 
-export default connect(
+
+
+Register = connect(
     state => state.user,
     { register }
 )(Register)
+
+Register = SubmitForm(Register)
+
+export default Register

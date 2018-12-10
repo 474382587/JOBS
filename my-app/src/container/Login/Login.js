@@ -1,5 +1,6 @@
 import React from 'react'
 import Logo from '../../components/Logo/Logo'
+import SubmitForm from '../../components/SubmitForm/SubmitForm'
 import { List, InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile'
 import { login } from '../../redux/user.redux'
 import { connect } from 'react-redux'
@@ -8,20 +9,20 @@ class Login extends React.Component {
     constructor(props) {
         super(props)
         this.register = this.register.bind(this)
-        this.state = {
-            user: '',
-            pwd: ''
-        }
+        // this.state = {
+        //     user: '',
+        //     pwd: ''
+        // }
         this.handleLogin = this.handleLogin.bind(this)
     }
     handleLogin() {
-        this.props.login(this.state)
+        this.props.login(this.props.state)
     }
-    handleChange(key, val) {
-        this.setState({
-            [key]: val
-        })
-    }
+    // handleChange(key, val) {
+    //     this.setState({
+    //         [key]: val
+    //     })
+    // }
     register() {
         this.props.history.push('./register')
     }
@@ -42,13 +43,13 @@ class Login extends React.Component {
                         ) : (
                             ''
                         )}
-                        <InputItem onChange={v => this.handleChange('user', v)}>
+                        <InputItem onChange={v => this.props.handleChange('user', v)}>
                             Username
                         </InputItem>
                         <WhiteSpace style={{ backgroundColor: '#f5f5f9' }} />
                         <InputItem
                             type="password"
-                            onChange={v => this.handleChange('pwd', v)}
+                            onChange={v => this.props.handleChange('pwd', v)}
                         >
                             Password
                         </InputItem>
@@ -70,4 +71,6 @@ Login = connect(
     state => state.user,
     { login }
 )(Login)
+
+Login = SubmitForm(Login)
 export default Login

@@ -3,7 +3,7 @@ import {Grid, List} from 'antd-mobile'
 import PropTypes from 'prop-types'
 
 class AvatarSelector extends React.Component {
-    static PropTypes = {
+    static propTypes = {
         selectAvatar: PropTypes.func.isRequired
     }
     constructor(props) {
@@ -27,7 +27,7 @@ class AvatarSelector extends React.Component {
             'Choose Your Avatar: '
         )
         return (
-            <div>
+            <div style={{marginTop: 45}}>
                 <List renderHeader={() => gridHeader}>
                     <Grid
                         data={avatarList}
