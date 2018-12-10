@@ -19,6 +19,8 @@ import Dashboard from './components/Dashboard/Dashboard'
 
 import BossInfo from './container/BossInfo/BossInfo'
 import GeniusInfo from './container/GeniusInfo/GeniusInfo'
+import Chat from './container/Chat/Chat'
+
 import { Switch } from 'react-router-dom'
 
 const reduxDevTools = window.devToolsExtension ? window.devToolsExtension() : ''
@@ -46,6 +48,8 @@ ReactDOM.render(
 
                     <Route path="/login" component={Login} />
                     <Route path="/register" component={Register} />
+
+                    <Route path="/chat/:user" component={Chat} />
 
                     <Route component={Dashboard}></Route>
                 </Switch>

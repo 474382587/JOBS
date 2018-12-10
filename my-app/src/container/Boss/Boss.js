@@ -6,10 +6,16 @@ import { connect } from 'react-redux'
 import { getUserList } from '../../redux/chatuser.redux'
 
 class Boss extends React.Component {
+    constructor(props) {
+        super(props)
+        this.handleClick = this.handleClick.bind(this)
+    }
     componentDidMount() {
         this.props.getUserList('genius')
     }
-
+    handleClick(el){
+        this.props.history.push(`/chat/${el.user}`)
+    }
     render() {
         return (
             <WingBlank>
@@ -18,7 +24,9 @@ class Boss extends React.Component {
                     return e.avatar ? (
                         <div key={e._id}>
                             <WhiteSpace />
-                            <Card>
+                            <Card 
+                                onClick={() => this.handleClick(e)}
+                            >
                                 <Card.Header
                                     title={e.user}
                                     thumb={require(`../../components/img/${
