@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, WhiteSpace } from 'antd-mobile'
 import CardBody from 'antd-mobile/lib/card/CardBody'
 import PropTypes from 'prop-types'
-
+import { withRouter } from 'react-router-dom'
 class UserCard extends React.Component {
     static propTypes = {
         userInfo: PropTypes.object.isRequired
@@ -21,7 +21,7 @@ class UserCard extends React.Component {
         return (
             <div key={id}>
                 <WhiteSpace />
-                <Card>
+                <Card onClick={() => this.props.handleClick(user)}>
                     <Card.Header
                         title={user}
                         thumb={require(`../../components/img/${avatar}.png`)}
@@ -30,10 +30,9 @@ class UserCard extends React.Component {
                     <CardBody>
                         {type === 'boss' ? (
                             <div>
-                            Company: {company}    
-                            <br/>
-                            Salary: {salary}
-                                                           
+                                Company: {company}
+                                <br />
+                                Salary: {salary}
                             </div>
                         ) : (
                             ''
@@ -49,5 +48,5 @@ class UserCard extends React.Component {
         )
     }
 }
-
+UserCard = withRouter(UserCard)
 export default UserCard
