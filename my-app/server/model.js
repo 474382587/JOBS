@@ -24,7 +24,33 @@ const models = {
         company: { type: String },
         salary: { type: String }
     },
-    chat: {}
+    chat: {
+        read: {
+            type: Boolean,
+            default: false
+        },
+        chatid: {
+            type: String,
+            require: true
+        },
+        from: {
+            type: String,
+            require: true
+        },
+        to: {
+            type: String,
+            require: true
+        },
+        content: {
+            type: String,
+            require: true,
+            default: ''
+        },
+        create_time: {
+            type: Number,
+            default: new Date().getTime()
+        }
+    }
 }
 
 for (let m in models) {

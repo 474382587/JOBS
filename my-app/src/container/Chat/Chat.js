@@ -1,6 +1,9 @@
 import React from 'react'
-import io from 'socket.io-client'
 import { List, InputItem } from 'antd-mobile'
+
+import { connect } from 'react-redux'
+import { getMsgList } from '../../redux/chat.redux'
+import io from 'socket.io-client'
 const socket = io('ws://localhost:9093')
 
 class Chat extends React.Component {
@@ -13,10 +16,7 @@ class Chat extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    state = {
-        
-    }
-
+    state = {}
 
     handleSubmit() {
         socket.emit('sendMsg', { text: this.state.text })
@@ -24,18 +24,22 @@ class Chat extends React.Component {
         console.log(this.state)
     }
     componentDidMount() {
-        socket.on('recvMsg', function(data) {
-            this.setState({
-                msg: [...this.state.msg, data.text]
-            })
-        }.bind(this))
+        this.props.getMsgList()
+        // socket.on(
+        //     'recvMsg',
+        //     function(data) {
+        //         this.setState({
+        //             msg: [...this.state.msg, data.text]
+        //         })
+        //     }.bind(this)
+        // )
     }
     render() {
         return (
             <div>
-            {this.state.msg.map(v=>{
-                return <p key={v}>{v}</p>
-            })}
+                {this.state.msg.map(v => {
+                    return <p key={v}>{v}</p>
+                })}
                 <div className="stick-footer">
                     <List>
                         <InputItem
@@ -62,5 +66,10 @@ class Chat extends React.Component {
         )
     }
 }
-
+Chat = connect(
+    state => state,
+    {
+        getMsgList
+    }
+)(Chat)
 export default Chat
