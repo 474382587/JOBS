@@ -14,7 +14,7 @@ class Boss extends React.Component {
         this.props.getUserList('genius')
     }
     handleClick(el){
-        this.props.history.push(`/chat/${el.user}`)
+        this.props.history.push(`/chat/${el._id}`)
     }
     render() {
         return (
