@@ -21,7 +21,7 @@ class UserCard extends React.Component {
         return (
             <div key={id}>
                 <WhiteSpace />
-                <Card onClick={() => this.props.handleClick(user)}>
+                <Card onClick={() => this.props.handleClick(id)}>
                     <Card.Header
                         title={user}
                         thumb={require(`../../components/img/${avatar}.png`)}
