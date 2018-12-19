@@ -23,7 +23,7 @@ import Chat from './container/Chat/Chat'
 
 import { Switch } from 'react-router-dom'
 
-const reduxDevTools = window.devToolsExtension ? window.devToolsExtension() : ''
+const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 const store = createStore(
     reducer,
     compose(
