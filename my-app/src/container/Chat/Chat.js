@@ -1,10 +1,10 @@
 import React from 'react'
-import { List, InputItem, NavBar } from 'antd-mobile'
+import { List, InputItem, NavBar, Icon } from 'antd-mobile'
 
 import { connect } from 'react-redux'
 import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
-import io from 'socket.io-client'
-const socket = io('ws://localhost:9093')
+// import io from 'socket.io-client'
+// const socket = io('ws://localhost:9093')
 
 class Chat extends React.Component {
     constructor(props) {
@@ -20,7 +20,7 @@ class Chat extends React.Component {
 
     handleSubmit() {
         // socket.emit('sendMsg', { text: this.state.text })
-        const from = this.props.user._id;
+        const from = this.props.user._id
         const to = this.props.match.params.user
         const msg = this.state.text
         this.setState({ text: '' })
@@ -37,45 +37,51 @@ class Chat extends React.Component {
         })
     }
     componentDidMount() {
-        this.props.getMsgList()
-        this.props.recvMsg()
-        // socket.on(
-        //     'recvMsg',
-        //     function(data) {
-        //         this.setState({
-        //             msg: [...this.state.msg, data.text]
-        //         })
-        //     }.bind(this)
-        // )
+        if (!this.props.chat.chatmsg.length) {
+            this.props.getMsgList()
+            this.props.recvMsg()
+        }
     }
     render() {
-        const user = this.props.match.params.user
+        const userid = this.props.match.params.user
         const Item = List.Item
+        const users = this.props.chat.users
+        console.log(users)
+        console.log('userid ', userid)
+        console.dir(users[userid])
+        if (!users[userid]) {
+            return null
+        }
         return (
             <div id="chat-page">
-                <NavBar mode="dark">
-                    {this.props.match.params.user}
+                <NavBar
+                    icon={<Icon type="left" />}
+                    onLeftClick={() => {
+                        this.props.history.goBack()
+                    }}
+                    mode="dark"
+                    style={{ zIndex: 10 }}
+                >
+                    {users[userid].name}
                 </NavBar>
+                <div style={{ paddingBottom: 45 }} />
                 {this.props.chat.chatmsg.map(v => {
-                    return v.from === user ? (
+                    const avatar = require(`../../components/img/${
+                        users[v.from].avatar
+                    }.png`)
+                    return v.from === userid ? (
                         <List key={v._id}>
-                            <Item 
-                            // thumb={}
-                            >
-                                {v.content}
-                            </Item>
+                            <Item thumb={avatar}>{v.content}</Item>
                         </List>
                     ) : (
                         <List key={v._id}>
-                            <Item
-                            extra={'avatar'}
-                            className="chat-me">
+                            <Item extra={<img src={avatar} alt="to" />} className="chat-me">
                                 {v.content}
                             </Item>
                         </List>
                     )
-                    // return <p key={v._id}>{v.content}</p>
                 })}
+                <div style={{ paddingBottom: 45 }} />
                 <div className="stick-footer">
                     <List>
                         <InputItem

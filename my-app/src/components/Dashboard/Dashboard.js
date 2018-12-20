@@ -9,10 +9,14 @@ import '../../app.css'
 import { NavBar } from 'antd-mobile'
 import { Switch } from 'react-router-dom'
 import NavLink from '../../components/NavLink/NavLink'
-
+import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
 
 class Dashboard extends React.Component {
-    render() {        
+    componentDidMount() {
+        this.props.getMsgList()
+        this.props.recvMsg()
+    }
+    render() {
         const { pathname } = this.props.location
         const user = this.props
         const navList = [
@@ -49,18 +53,20 @@ class Dashboard extends React.Component {
         ]
         return (
             <div>
-                <NavBar className='fixed-header ' mode="dark">
+                <NavBar className="fixed-header " mode="dark">
                     {navList.find(v => v.path === pathname).title}
                 </NavBar>
-                <div style={{marginTop:45}}>
+                <div style={{ marginTop: 45 }}>
                     <Switch>
-                        {
-                            navList.map(e=>{
-                                return (
-                                    <Route key={e.path} path={e.path} component={e.component}></Route>
-                                )
-                            })
-                        }
+                        {navList.map(e => {
+                            return (
+                                <Route
+                                    key={e.path}
+                                    path={e.path}
+                                    component={e.component}
+                                />
+                            )
+                        })}
                     </Switch>
                 </div>
                 <NavLink data={navList} />
@@ -69,6 +75,9 @@ class Dashboard extends React.Component {
     }
 }
 
-Dashboard = connect(state => state.user, {})(Dashboard)
+Dashboard = connect(
+    state => state.user,
+    { getMsgList, sendMsg, recvMsg }
+)(Dashboard)
 
 export default Dashboard

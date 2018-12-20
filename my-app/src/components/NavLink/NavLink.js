@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { TabBar } from 'antd-mobile'
 // import 'antd-mobile/dist/antd-mobile.css';
 // import 'antd-mobile/lib/tab-bar/style/index.css';
+import { connect } from "react-redux";
 import { withRouter } from 'react-router'
 
 class NavLink extends React.Component {
@@ -18,6 +19,7 @@ class NavLink extends React.Component {
                 {navList.map(e => {
                     return (
                         <TabBar.Item
+                            badge={e.path==='/msg' ? this.props.unread : 0}
                             key={e.path}
                             icon={{ uri: require(`./img/${e.icon}.png`) }}
                             title={e.text}
@@ -35,5 +37,6 @@ class NavLink extends React.Component {
         )
     }
 }
+NavLink = connect(state=>state.chat)(NavLink)
 NavLink = withRouter(NavLink)
 export default NavLink

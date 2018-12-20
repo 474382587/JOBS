@@ -6,7 +6,7 @@ const Chat = model.getModel('chat')
 const utils = require('utility')
 
 // Chat.remove({},function (err,doc) {
-    
+
 // })
 
 Router.get('/list', function(req, res) {
@@ -22,12 +22,21 @@ Router.get('/list', function(req, res) {
 })
 
 Router.get('/getmsglist', function(req, res) {
-    const user = req.cookies.user
-    // {'$or': [{from: user, to: user}]}
-    Chat.find({}, function(err, doc) {
-        if(!err) {
-            return res.json({code: 0, msgs: doc})
-        }
+    const user = req.cookies.userid
+    User.find({}, function(e, userDoc) {
+        let users = {}
+        userDoc.forEach(e => {
+            users[e._id] = {
+                name: e.user,
+                avatar: e.avatar
+            }
+        })
+        // {'$or': [{from: user, to: user}]}
+        Chat.find({ $or: [{ from: user }, { to: user }] }, function(err, doc) {
+            if (!err) {
+                return res.json({ code: 0, msgs: doc, users: users })
+            }
+        })
     })
 })
 
