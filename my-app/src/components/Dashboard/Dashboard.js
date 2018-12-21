@@ -13,12 +13,14 @@ import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
 
 class Dashboard extends React.Component {
     componentDidMount() {
-        this.props.getMsgList()
-        this.props.recvMsg()
+        if (!this.props.chat.chatmsg.length) {
+            this.props.getMsgList()
+            this.props.recvMsg()
+        }
     }
     render() {
         const { pathname } = this.props.location
-        const user = this.props
+        const user = this.props.user
         const navList = [
             {
                 path: '/boss',
@@ -76,7 +78,7 @@ class Dashboard extends React.Component {
 }
 
 Dashboard = connect(
-    state => state.user,
+    state => state,
     { getMsgList, sendMsg, recvMsg }
 )(Dashboard)
 

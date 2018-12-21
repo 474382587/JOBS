@@ -23,14 +23,15 @@ export function chat(state = initState, action) {
             return {
                 ...state,
                 chatmsg: action.payload.msgs,
-                unread: action.payload.msgs.filter(el => !el.read).length,
+                unread: action.payload.msgs.filter(el => !el.read && el.to === action.payload.userid).length,
                 users: action.payload.users
             }
         case MSG_RECV:
+            const n = action.payload.to === action.payload.userid ? 1 : 0
             return {
                 ...state,
-                chatmsg: [...state.chatmsg, action.payload],
-                unread: state.unread + 1
+                chatmsg: [...state.chatmsg, action.payload.data],
+                unread: state.unread + n
             }
         case MSG_READ:
             return
@@ -39,34 +40,35 @@ export function chat(state = initState, action) {
     }
 }
 
-function msgList(msgs, users) {
+function msgList(msgs, users, userid) {
     return {
         type: MSG_LIST,
-        payload: { msgs, users }
+        payload: { msgs, users, userid }
     }
 }
 
-function msgRecv(data) {
+function msgRecv(data,userid) {
     return {
         type: MSG_RECV,
-        payload: data
+        payload: {data, userid}
     }
 }
 export function getMsgList() {
-    return dispatch => {
+    return (dispatch, getState) => {
         axios.get('/user/getmsglist').then(res => {
             if (res.status === 200 && res.data.code === 0) {
-                dispatch(msgList(res.data.msgs, res.data.users))
+                const userid = getState().user._id
+                dispatch(msgList(res.data.msgs, res.data.users, userid))
             }
         })
     }
 }
 
 export function recvMsg(data) {
-    return dispatch => {
+    return (dispatch, getState) => {
         socket.on('recvmsg', function(data) {
-            console.log(data)
-            dispatch(msgRecv(data))
+            const userid = getState().user._id
+            dispatch(msgRecv(data, userid))
         })
     }
 }
