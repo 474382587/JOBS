@@ -118,20 +118,20 @@ class Chat extends React.Component {
                             extra={
                                 <div>
                                     <span
-                                        onClick={()=>{
+                                        onClick={() => {
                                             this.setState({
                                                 showEmoji: !this.state.showEmoji
                                             })
                                             this.fixCarousel()
                                         }}
                                         role="img"
-                                        aria-label="nomouth"
+                                        aria-label="smile"
                                         style={{
                                             marginRight: '15px',
                                             lineHeight: 1.2
                                         }}
                                     >
-                                        😶
+                                        😃
                                     </span>
                                     <span
                                         onClick={() => {
@@ -150,7 +150,7 @@ class Chat extends React.Component {
                             columnNum={9}
                             carouselMaxRow={4}
                             isCarousel={true}
-                            onClick={(el)=>{
+                            onClick={el => {
                                 console.log(el)
                                 this.setState({
                                     text: this.state.text + el.text
