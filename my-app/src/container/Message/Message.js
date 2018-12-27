@@ -1,9 +1,22 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-class Message extends React.Component {
+class Msg extends React.Component {
     render() {
-        return <div>This is Message</div>
+        console.log(this.props)
+        const msgGroup = {}
+        this.props.chat.chatmsg.forEach(e => {
+            msgGroup[e.chatid] = msgGroup[e.chatid] || []
+            msgGroup[e.chatid].push(e)
+        })
+        console.table(msgGroup)
+        return <div>Message Center</div>
     }
 }
 
-export default Message
+Msg = connect(
+    state => state,
+    {}
+)(Msg)
+
+export default Msg

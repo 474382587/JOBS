@@ -10,6 +10,7 @@ import { NavBar } from 'antd-mobile'
 import { Switch } from 'react-router-dom'
 import NavLink from '../../components/NavLink/NavLink'
 import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
+// import Msg from '../Msg/Msg'
 
 class Dashboard extends React.Component {
     componentDidMount() {
