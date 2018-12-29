@@ -29,15 +29,21 @@ class Msg extends React.Component {
                 <List>
                     {chatList.map(e => {
                         const lastItem = this.getLast(e)
-                        const targetId = e[0].from === userid ? e[0].to : e[0].from
-                        const name = userinfo[targetId] && userinfo[targetId].name
-                        const avatar = userinfo[targetId] && userinfo[targetId].avatar
+                        const targetId =
+                            e[0].from === userid ? e[0].to : e[0].from
+                        const name =
+                            userinfo[targetId] && userinfo[targetId].name
+                        const avatar =
+                            userinfo[targetId] && userinfo[targetId].avatar
                         return (
-                            <Item key={lastItem._id} thumb={require("../../components/img/"+ avatar +".png")}>
+                            <Item
+                                key={lastItem._id}
+                                thumb={require('../../components/img/' +
+                                    avatar +
+                                    '.png')}
+                            >
                                 {lastItem.content}
-                                <Brief>{
-                                    name
-                                }</Brief>
+                                <Brief>{name}</Brief>
                             </Item>
                         )
                     })}
