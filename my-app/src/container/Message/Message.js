@@ -22,7 +22,11 @@ class Msg extends React.Component {
             msgGroup[e.chatid].push(e)
         })
         // console.table(msgGroup)
-        const chatList = Object.values(msgGroup)
+        const chatList = Object.values(msgGroup).sort((a,b) => {
+            const a_last = this.getLast(a).create_time
+            const b_last = this.getLast(b).create_time
+            return b_last - a_last
+        })
         console.log(chatList)
         return (
             <div>

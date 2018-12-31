@@ -48,6 +48,7 @@ const models = {
         },
         create_time: {
             type: Number,
+            require: true,
             default: new Date().getTime()
         }
     }
