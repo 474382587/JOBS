@@ -22,7 +22,7 @@ class Msg extends React.Component {
             msgGroup[e.chatid].push(e)
         })
         // console.table(msgGroup)
-        const chatList = Object.values(msgGroup).sort((a,b) => {
+        const chatList = Object.values(msgGroup).sort((a, b) => {
             const a_last = this.getLast(a).create_time
             const b_last = this.getLast(b).create_time
             return b_last - a_last
@@ -39,14 +39,16 @@ class Msg extends React.Component {
                             userinfo[targetId] && userinfo[targetId].name
                         const avatar =
                             userinfo[targetId] && userinfo[targetId].avatar
-                        const unreadNum = e.filter(e=>{
+                        const unreadNum = e.filter(e => {
                             return !e.read && e.to === userid
                         }).length
                         return (
                             <Item
-                                extra={
-                                    <Badge text={unreadNum}></Badge>
-                                }
+                                arrow="horizontal"
+                                onClick={() => {
+                                    this.props.history.push(`/chat/${targetId}`)
+                                }}
+                                extra={<Badge text={unreadNum} />}
                                 key={lastItem._id}
                                 thumb={require('../../components/img/' +
                                     avatar +
