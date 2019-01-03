@@ -9,6 +9,27 @@ const utils = require('utility')
 
 // })
 
+Router.post('/readmsg', function(req, res) {
+    const userid = req.cookies.userid
+    const { from } = req.body
+    // console.log(userid,"asdasdaasa",from)
+    Chat.updateMany({ from, to: userid }, { '$set': { read: true } }, function(err, doc) {
+        console.log(doc)
+        if(!err) {
+            return res.json({
+                code: 0,
+                num: doc.nModified
+            })
+        }
+        else {
+            return res.json({
+                code: 1,
+                msg: 'update error'
+            })
+        }
+    })
+})
+
 Router.get('/list', function(req, res) {
     const type = req.query.type
     console.log(type)
