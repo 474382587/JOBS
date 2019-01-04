@@ -2,7 +2,7 @@ import React from 'react'
 import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile'
 
 import { connect } from 'react-redux'
-import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
+import { getMsgList, sendMsg, recvMsg, readMsg } from '../../redux/chat.redux'
 import { getChatId } from '../../util'
 // import io from 'socket.io-client'
 // const socket = io('ws://localhost:9093')
@@ -42,7 +42,11 @@ class Chat extends React.Component {
             this.props.getMsgList()
             this.props.recvMsg()
         }
-        this.fixCarousel()
+    }
+    componentWillUnmount() {
+        const to = this.props.match.params.user
+        console.log(to)
+        this.props.readMsg(to)
     }
     fixCarousel() {
         setTimeout(() => {
@@ -170,7 +174,8 @@ Chat = connect(
     {
         getMsgList,
         sendMsg,
-        recvMsg
+        recvMsg,
+        readMsg
     }
 )(Chat)
 export default Chat

@@ -39,6 +39,8 @@ class Msg extends React.Component {
                             userinfo[targetId] && userinfo[targetId].name
                         const avatar =
                             userinfo[targetId] && userinfo[targetId].avatar
+                                ? userinfo[targetId].avatar
+                                : 'zebra'
                         const unreadNum = e.filter(e => {
                             return !e.read && e.to === userid
                         }).length

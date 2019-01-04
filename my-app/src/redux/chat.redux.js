@@ -23,7 +23,9 @@ export function chat(state = initState, action) {
             return {
                 ...state,
                 chatmsg: action.payload.msgs,
-                unread: action.payload.msgs.filter(el => !el.read && el.to === action.payload.userid).length,
+                unread: action.payload.msgs.filter(
+                    el => !el.read && el.to === action.payload.userid
+                ).length,
                 users: action.payload.users
             }
         case MSG_RECV:
@@ -34,7 +36,15 @@ export function chat(state = initState, action) {
                 unread: state.unread + n
             }
         case MSG_READ:
-            return
+            const { from, num } = action.payload
+            return {
+                ...state,
+                chatmsg: state.chatmsg.map(e => {
+                    e.read = from === e.from ? true : e.read
+                    return e
+                }),
+                unread: state.unread - num
+            }
         default:
             return state
     }
@@ -47,10 +57,20 @@ function msgList(msgs, users, userid) {
     }
 }
 
-function msgRecv(data,userid) {
+function msgRecv(data, userid) {
     return {
         type: MSG_RECV,
-        payload: {data, userid}
+        payload: { data, userid }
+    }
+}
+function msgRead({ from, userid, num }) {
+    return {
+        type: MSG_READ,
+        payload: {
+            from,
+            userid,
+            num
+        }
     }
 }
 export function getMsgList() {
@@ -78,6 +98,22 @@ export function sendMsg({ from, to, msg }) {
             from,
             to,
             msg
+        })
+    }
+}
+export function readMsg(from) {
+    return (dispatch, getState) => {
+        axios.post('/user/readmsg', { from }).then(res => {
+            const userid = getState().user._id
+            if (res.status === 200 && res.data.code === 0) {
+                dispatch(
+                    msgRead({
+                        userid,
+                        from,
+                        num: res.data.num
+                    })
+                )
+            }
         })
     }
 }
