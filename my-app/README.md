@@ -1,3 +1,9 @@
+You have to start the node server first and then start the project and go to '/login'
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
